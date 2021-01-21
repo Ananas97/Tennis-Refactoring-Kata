@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 
 class TennisGame1:
+    DRAW_SCORES = {
+        0: "Love-All",
+        1: "Fifteen-All",
+        2: "Thirty-All",
+    }
+
+    SCORES = {
+        0: "Love",
+        1: "Fifteen",
+        2: "Thirty",
+        3: "Forty",
+    }
 
     def __init__(self, player_one_name, player_two_name):
         self.player_one_name = player_one_name
@@ -17,11 +29,7 @@ class TennisGame1:
     def score(self):
         result = ""
         if self.player_one_points == self.player_two_points:
-            result = {
-                0: "Love-All",
-                1: "Fifteen-All",
-                2: "Thirty-All",
-            }.get(self.player_one_points, "Deuce")
+            result = self.DRAW_SCORES.get(self.player_one_points, "Deuce")
         elif self.player_one_points >= 4 or self.player_two_points >= 4:
             minus_result = self.player_one_points - self.player_two_points
             if minus_result == 1:
@@ -39,12 +47,7 @@ class TennisGame1:
                 else:
                     result += "-"
                     temp_score = self.player_two_points
-                result += {
-                    0: "Love",
-                    1: "Fifteen",
-                    2: "Thirty",
-                    3: "Forty",
-                }[temp_score]
+                result += self.SCORES[temp_score]
         return result
 
 
