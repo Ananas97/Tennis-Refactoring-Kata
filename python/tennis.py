@@ -29,26 +29,30 @@ class TennisGame1:
     def score(self):
         result = ""
         if self.player_one_points == self.player_two_points:
-            result = self.DRAW_SCORES.get(self.player_one_points, "Deuce")
+            result = self.get_draw()
         elif self.player_one_points >= 4 or self.player_two_points >= 4:
-            minus_result = self.player_one_points - self.player_two_points
-            if minus_result == 1:
-                result = "Advantage " + self.player_one_name
-            elif minus_result == -1:
-                result = "Advantage " + self.player_two_name
-            elif minus_result >= 2:
-                result = "Win for " + self.player_one_name
-            else:
-                result = "Win for " + self.player_two_name
+            points_difference = self.player_one_points - self.player_two_points
+            result = self.get_message_by_difference(points_difference) + self.get_winning_player_name()
         else:
-            for i in range(1, 3):
-                if i == 1:
-                    temp_score = self.player_one_points
-                else:
-                    result += "-"
-                    temp_score = self.player_two_points
-                result += self.SCORES[temp_score]
+            result += self.get_player_score(self.player_one_points)
+            result += "-"
+            result += self.get_player_score(self.player_two_points)
         return result
+
+    def get_draw(self):
+        return self.DRAW_SCORES.get(self.player_one_points, "Deuce")
+
+    def get_winning_player_name(self):
+        return self.player_one_name if self.player_one_points > self.player_two_points else self.player_two_name
+
+    def get_player_score(self, points):
+        return self.SCORES[points]
+
+    def get_message_by_difference(self, points_difference):
+        if points_difference == 1:
+            return "Advantage "
+        else:
+            return "Win for "
 
 
 class TennisGame2:
