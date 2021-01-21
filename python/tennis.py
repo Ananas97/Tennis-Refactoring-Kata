@@ -23,8 +23,10 @@ class TennisGame1:
     def won_point(self, player_name):
         if player_name == self.player_one_name:
             self.player_one_points += 1
-        else:
+        elif player_name == self.player_two_name:
             self.player_two_points += 1
+        else:
+            raise Exception("Unknown player_name")
 
     def score(self):
         if self.player_one_points == self.player_two_points:
